@@ -1,0 +1,280 @@
+---
+title: "Biomes Map"
+description: "Visualização de mapas dos biomas brasileiros com pakage 'geobr'"
+author script: 
+  - name: "Ítalo Marques-Monteiro"
+    url:
+    github: https://github.com/italomarquesmonteiro
+    kaggle: https://www.kaggle.com/talomarquesmonteiro
+    linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    lattes: http://lattes.cnpq.br/7174985368517137
+    orcid_id: https://orcid.org/0000-0003-4367-1034
+    affiliation: Anhanguera College  
+        - Department: Veterinary Medicine
+date: "2022-03-08"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ 
+   *package* [`{tidyverse}`](https://www.tidyverse.org) possui um ecossistema de packages:
+                           ->[{`ggplot2`}](https://ggplot2.tidyverse.org/).
+                            ->[{`tibble`}](https://tibble.tidyverse.org/).
+                             ->[{`tidyr`}](https://tidyr.tidyverse.org/).
+                              ->[{`dplyr`}](https://dplyr.tidyverse.org/).
+                               ->[{`readr`}](https://readr.tidyverse.org/).
+                                ->[{`purrr`}](https://purrr.tidyverse.org/).
+                                 ->[{`forcats`}](https://forcats.tidyverse.org/).
+   *package* [{`geobr`}](https://github.com/ipeaGIT/geobr). Tem fácil acesso a conjuntos de dados espaciais oficiais do Brasil como objetos 'sf' em R. O pacote inclui uma ampla gama de dados geoespaciais disponíveis em várias escalas geográficas e por vários anos com atributos harmonizados, projeção e topologia fixa.
+   *package* [{`sf`}](https://github.com/r-spatial/sf/). Suporte para recursos simples, uma maneira padronizada de codificar dados vetoriais espaciais.
+   *package* [{`tmap`}](https://github.com/r-tmap/tmap).Os mapas temáticos são mapas geográficos nos quais são visualizadas as distribuições de dados espaciais. Este pacote oferece uma abordagem flexível, baseada em camadas e fácil de usar para criar mapas temáticos, como coropléticos e mapas de bolhas.
+   *package* [{`ggrepel`}](https://github.com/slowkow/ggrepel). Fornece geoms de texto e rótulo para 'ggplot2' que ajudam a evitar rótulos de texto sobrepostos. Os rótulos se repelem e se afastam dos pontos de dados.
+
+# Packages
+```{r}
+library(tidyverse)
+library(geobr)
+library(ggrepel)
+library(sf)
+library(tmap)
+```
+
+ O Brasil possui seis *biomas*:
+                         `Amazônia`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/amazonia)
+                         `Cerrado`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/cerrado)
+                         `caatinga`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/caatinga)
+                         `Mata Atlântica`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/mata-atlantica)
+                         `Pampa`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/pampa)
+                         `Pantanal`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/pantanal)
+    Ainda no litoral brasileiro temos, manguezais, restingas, dunas, praias, ilhas, costões rochosos, baías, brejos e recifes de corais, entre outros. Eles formam o bioma Costeiro.                 
+                         *Costeiro*(http://www.invivo.fiocruz.br/biodiversidade/bioma-costeiro/)
+
+
+# Dados dos biomas brasileiros
+```{r}
+biomas <- geobr::read_biomes()
+amazonia <- biomas [1, ]
+caatinga <- biomas [2, ]
+cerrado <- biomas [3, ]
+atlantica <- biomas [4, ]
+pampa <- biomas [5, ]
+pantanal <- biomas [6, ]
+costeiro <- biomas [7, ]
+```
+
+
+# Dados do Brasil
+```{r}
+brasil <- geobr::read_state(
+    code_state = "all", year = 2020)
+```
+
+# Mapa do territorio brasileiro
+```{r}
+brazil_map <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Brazil",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+brazil_map
+```
+
+# Mapa biomas brasileiro
+```{r}
+brazil_biomes <- ggplot2::ggplot() +
+    geom_sf(data = amazonia,
+          fill = "#9B9B7A",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = caatinga,
+          fill = "#997B66",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = cerrado,
+          fill = "#FFCB69",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = atlantica,
+          fill = "#D9AE94",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = pampa,
+          fill = "#9B9B7A",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = pantanal,
+          fill = "#D08C60",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = costeiro,
+          fill = "#F1DCA7", #SteelBlue
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Brazil biomes",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+brazil_biomes
+```
+
+# Amazônia biomes
+```{r}
+amazonia_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = amazonia,
+          fill = "#9B9B7A",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Amazônia biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+amazonia_biome
+```
+
+# Caatinga biome
+```{r}
+caatinga_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = caatinga,
+          fill = "#997B66",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Caatinga biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+caatinga_biome
+```
+
+# Cerrado biome
+```{r}
+cerrado_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = cerrado,
+          fill = "#FFCB69",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Cerrado biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+cerrado_biome
+```
+
+# Mata atlântica biome
+```{r}
+mata_atlantica_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = atlantica,
+          fill = "#D9AE94",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Mata Atlântica biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+mata_atlantica_biome
+```
+
+# Pampa biome 
+```{r}
+pampa_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = pampa,
+          fill = "#9B9B7A",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Pampa biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+pampa_biome
+```
+
+# Pantanal biome 
+```{r}
+pantanal_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = pantanal,
+          fill = "#D08C60",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Pantanal biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+pantanal_biome
+```
+
+# Costeiro biome
+```{r}
+costeiro_biome <- ggplot2::ggplot() +
+    geom_sf(data = brasil,
+          fill = "grey",
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    geom_sf(data = costeiro,
+          fill = "#F1DCA7", #SteelBlue
+          color = "black",
+          size = .15,
+          show.legend = FALSE) +
+    theme_bw() +
+    labs(title = "Costeiro biome",
+        caption = "Fonte: Ítalo Monteiro",
+        x = "Longitude",
+        y = "Latitude")
+costeiro_biome
+```
