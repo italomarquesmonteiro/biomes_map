@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
    *package* [{`tmap`}](https://github.com/r-tmap/tmap).Os mapas temáticos são mapas geográficos nos quais são visualizadas as distribuições de dados espaciais. Este pacote oferece uma abordagem flexível, baseada em camadas e fácil de usar para criar mapas temáticos, como coropléticos e mapas de bolhas.
    *package* [{`ggrepel`}](https://github.com/slowkow/ggrepel). Fornece geoms de texto e rótulo para 'ggplot2' que ajudam a evitar rótulos de texto sobrepostos. Os rótulos se repelem e se afastam dos pontos de dados.
 
-# Packages
+Packages
 ```{r}
 library(tidyverse)
 library(geobr)
@@ -51,7 +51,7 @@ library(tmap)
                          *Costeiro*(http://www.invivo.fiocruz.br/biodiversidade/bioma-costeiro/)
 
 
-# Dados dos biomas brasileiros
+Dados dos biomas brasileiros
 ```{r}
 biomas <- geobr::read_biomes()
 amazonia <- biomas [1, ]
@@ -64,13 +64,13 @@ costeiro <- biomas [7, ]
 ```
 
 
-# Dados do Brasil
+Dados do Brasil
 ```{r}
 brasil <- geobr::read_state(
     code_state = "all", year = 2020)
 ```
 
-# Mapa do territorio brasileiro
+Mapa do territorio brasileiro
 ```{r}
 brazil_map <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -84,9 +84,11 @@ brazil_map <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 brazil_map
+
+#ggsave("brazil_map", plot = brazil_map, dpi = 600, height = 5, width = 7)
 ```
 
-# Mapa biomas brasileiro
+Mapa biomas brasileiro
 ```{r}
 brazil_biomes <- ggplot2::ggplot() +
     geom_sf(data = amazonia,
@@ -130,9 +132,11 @@ brazil_biomes <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 brazil_biomes
+
+#ggsave("brazil_biomes", plot = brazil_biomes, dpi = 600, height = 5, width = 7)
 ```
 
-# Amazônia biomes
+Amazônia biomes
 ```{r}
 amazonia_biome <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -151,9 +155,11 @@ amazonia_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 amazonia_biome
+
+#ggsave("amazonia_biome", plot = amazonia_biome, dpi = 600, height = 5, width = 7)
 ```
 
-# Caatinga biome
+Caatinga biome
 ```{r}
 caatinga_biome <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -172,9 +178,11 @@ caatinga_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 caatinga_biome
+
+#ggsave("caatinga_biome", plot = caatinga_biome, dpi = 600, height = 5, width = 7)
 ```
 
-# Cerrado biome
+Cerrado biome
 ```{r}
 cerrado_biome <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -193,9 +201,11 @@ cerrado_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 cerrado_biome
+
+#ggsave("cerrado_biome", plot = cerrado_biome, dpi = 600, height = 5, width = 7)
 ```
 
-# Mata atlântica biome
+Mata atlântica biome
 ```{r}
 mata_atlantica_biome <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -214,6 +224,8 @@ mata_atlantica_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 mata_atlantica_biome
+
+#ggsave("mata_atlantica_biome", plot = mata_atlantica_biome, dpi = 600, height = 5, width = 7)
 ```
 
 # Pampa biome 
@@ -235,9 +247,11 @@ pampa_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 pampa_biome
+
+#ggsave("pampa_biome", plot = pampa_biome, dpi = 600, height = 5, width = 7)
 ```
 
-# Pantanal biome 
+Pantanal biome 
 ```{r}
 pantanal_biome <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -256,9 +270,12 @@ pantanal_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 pantanal_biome
+
+#ggsave("pantanal_biome", plot = pantanal_biome, dpi = 600, height = 5, width = 7)
+
 ```
 
-# Costeiro biome
+Costeiro biome
 ```{r}
 costeiro_biome <- ggplot2::ggplot() +
     geom_sf(data = brasil,
@@ -277,4 +294,6 @@ costeiro_biome <- ggplot2::ggplot() +
         x = "Longitude",
         y = "Latitude")
 costeiro_biome
+
+#ggsave("costeiro_biome", plot = costeiro_biome, dpi = 600, height = 5, width = 7)
 ```
