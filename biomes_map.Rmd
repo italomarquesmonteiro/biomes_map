@@ -27,6 +27,7 @@ knitr::opts_chunk$set(echo = TRUE)
                                 ->[{`purrr`}](https://purrr.tidyverse.org/).
                                  ->[{`forcats`}](https://forcats.tidyverse.org/).
    *package* [{`geobr`}](https://github.com/ipeaGIT/geobr). Tem fácil acesso a conjuntos de dados espaciais oficiais do Brasil como objetos 'sf' em R. O pacote inclui uma ampla gama de dados geoespaciais disponíveis em várias escalas geográficas e por vários anos com atributos harmonizados, projeção e topologia fixa.
+                 - Dados do Instituto Brasileiro de Geografia e Estatística[`IBGE`](https://concla.ibge.gov.br/classificacoes/por-tema/codigo-de-areas/codigo-de-areas)
    *package* [{`sf`}](https://github.com/r-spatial/sf/). Suporte para recursos simples, uma maneira padronizada de codificar dados vetoriais espaciais.
    *package* [{`tmap`}](https://github.com/r-tmap/tmap).Os mapas temáticos são mapas geográficos nos quais são visualizadas as distribuições de dados espaciais. Este pacote oferece uma abordagem flexível, baseada em camadas e fácil de usar para criar mapas temáticos, como coropléticos e mapas de bolhas.
    *package* [{`ggrepel`}](https://github.com/slowkow/ggrepel). Fornece geoms de texto e rótulo para 'ggplot2' que ajudam a evitar rótulos de texto sobrepostos. Os rótulos se repelem e se afastam dos pontos de dados.
@@ -40,6 +41,10 @@ library(sf)
 library(tmap)
 ```
 
+lista de funcões por geografia, ano e fonte
+```{r}
+lista_codigos <- geobr::list_geobr() #|> readr::write_csv("list_geobr.csv")
+```
  O Brasil possui seis *biomas*:
                          `Amazônia`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/amazonia)
                          `Cerrado`(https://www.gov.br/mma/pt-br/assuntos/ecossistemas-1/biomas/cerrado)
@@ -80,12 +85,17 @@ brazil_map <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Brazil",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE (2020)",
         x = "Longitude",
         y = "Latitude")
 brazil_map
 
-#ggsave("brazil_map", plot = brazil_map, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/brazil_map.png", 
+      plot = brazil_map, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Mapa biomas brasileiro
@@ -128,12 +138,17 @@ brazil_biomes <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Brazil biomes",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 brazil_biomes
 
-#ggsave("brazil_biomes", plot = brazil_biomes, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/brazil_biomes.png", 
+      plot = brazil_biomes, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Amazônia biomes
@@ -151,12 +166,17 @@ amazonia_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Amazônia biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 amazonia_biome
 
-#ggsave("amazonia_biome", plot = amazonia_biome, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/amazonia_biome.png", 
+      plot = amazonia_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Caatinga biome
@@ -174,12 +194,17 @@ caatinga_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Caatinga biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 caatinga_biome
 
-#ggsave("caatinga_biome", plot = caatinga_biome, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/caatinga_biome.png",
+      plot = caatinga_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Cerrado biome
@@ -197,12 +222,17 @@ cerrado_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Cerrado biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 cerrado_biome
 
-#ggsave("cerrado_biome", plot = cerrado_biome, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/cerrado_biome.png", 
+      plot = cerrado_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Mata atlântica biome
@@ -220,12 +250,17 @@ mata_atlantica_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Mata Atlântica biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 mata_atlantica_biome
 
-#ggsave("mata_atlantica_biome", plot = mata_atlantica_biome, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/mata_atlantica_biome.png", 
+      plot = mata_atlantica_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 # Pampa biome 
@@ -243,12 +278,17 @@ pampa_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Pampa biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 pampa_biome
 
-#ggsave("pampa_biome", plot = pampa_biome, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/pampa_biome.png", 
+      plot = pampa_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Pantanal biome 
@@ -266,13 +306,17 @@ pantanal_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Pantanal biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 pantanal_biome
 
-#ggsave("pantanal_biome", plot = pantanal_biome, dpi = 600, height = 5, width = 7)
-
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/pantanal_biome.png", 
+      plot = pantanal_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
 
 Costeiro biome
@@ -290,10 +334,15 @@ costeiro_biome <- ggplot2::ggplot() +
           show.legend = FALSE) +
     theme_bw() +
     labs(title = "Costeiro biome",
-        caption = "Fonte: Ítalo Monteiro",
+        caption = "Ítalo Monteiro
+        Source: IBGE(2019)",
         x = "Longitude",
         y = "Latitude")
 costeiro_biome
 
-#ggsave("costeiro_biome", plot = costeiro_biome, dpi = 600, height = 5, width = 7)
+ggsave("C:/Users/italo/OneDrive/Área de Trabalho/GitHub/biomes_map/images/costeiro_biome.png", 
+      plot = costeiro_biome, 
+      dpi = 1200, 
+      height = 5, 
+      width = 7)
 ```
