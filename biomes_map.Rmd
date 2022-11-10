@@ -3,7 +3,6 @@ title: "Biomes Map"
 description: "Visualização de mapas dos biomas brasileiros com pakage 'geobr'"
 author script: 
   - name: "Ítalo Marques-Monteiro"
-    url:
     github: https://github.com/italomarquesmonteiro
     kaggle: https://www.kaggle.com/talomarquesmonteiro
     linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
